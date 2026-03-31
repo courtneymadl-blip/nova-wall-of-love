@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wall of Love — Nova Talent</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #09000E;
+    --bg-card: #131C24;
+    --bg-card-hover: #1a2632;
+    --teal: #0EB0A4;
+    --teal-dim: rgba(14, 176, 164, 0.12);
+    --teal-border: rgba(14, 176, 164, 0.35);
+    --text-primary: #FFFFFF;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    --border: rgba(255,255,255,0.07);
+    --radius: 14px;
+    --radius-sm: 10px;
+    --radius-pill: 50px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Open Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER / NAVBAR ===== */
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 18px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(9, 0, 14, 0.88);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .logo-svg {
+    height: 30px;
+    width: auto;
+    display: block;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--text-primary); }
+
+  .nav-cta {
+    background: var(--teal);
+    color: white;
+    padding: 9px 22px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.2s;
+    letter-spacing: -0.2px;
+  }
+  .nav-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+
+  /* ===== HERO ===== */
+  .hero {
+    padding: 160px 40px 80px;
+    text-align: center;
+    max-width: 860px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(14,176,164,0.1) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .hero > * { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(44px, 6.5vw, 72px);
+    font-weight: 700;
+    line-height: 1.08;
+    margin-bottom: 28px;
+    letter-spacing: -2px;
+  }
+
+  .hero h1 .hero-static {
+    display: block;
+    color: var(--text-primary);
+  }
+
+  .hero h1 .hero-dynamic {
+    display: block;
+    color: var(--teal);
+    min-height: 1.08em;
+    transition: opacity 0.35s ease;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.75;
+    color: var(--text-secondary);
+    max-width: 580px;
+    margin: 0 auto;
+    font-weight: 400;
+  }
+
+  /* ===== STATS BAR ===== */
+  .stats-bar {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 0 40px 60px;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .stat {
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+    padding: 20px;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -1.5px;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+  }
+
+  /* ===== FILTER BAR ===== */
+  .filter-bar {
+    position: sticky;
+    top: 71px;
+    z-index: 90;
+    background: rgba(9, 0, 14, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: 14px 40px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .filter-btn {
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: -0.1px;
+  }
+
+  .filter-btn:hover {
+    border-color: var(--teal-border);
+    color: var(--text-primary);
+    background: rgba(255,255,255,0.04);
+  }
+
+  .filter-btn.active {
+    background: var(--teal);
+    color: white;
+    border-color: var(--teal);
+    font-weight: 600;
+  }
+
+  /* ===== MASONRY GRID ===== */
+  .grid-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .masonry {
+    columns: 3;
+    column-gap: 20px;
+  }
+
+  @media (max-width: 900px) { .masonry { columns: 2; } }
+  @media (max-width: 600px) { .masonry { columns: 1; } }
+
+  /* ===== TESTIMONIAL CARDS ===== */
+  .card {
+    break-inside: avoid;
+    margin-bottom: 18px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    padding: 26px;
+    transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .card:hover {
+    border-color: rgba(255,255,255,0.14);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .card.featured {
+    border-color: rgba(14, 176, 164, 0.3);
+    background: linear-gradient(145deg, #131C24 0%, rgba(14, 176, 164, 0.06) 100%);
+  }
+
+  .card.featured:hover {
+    border-color: var(--teal-border);
+  }
+
+  .card.featured .card-quote {
+    font-size: 17px;
+    line-height: 1.65;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .card-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--border);
+    background: var(--bg-primary);
+    flex-shrink: 0;
+  }
+
+  .card-avatar-duo {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .card-avatar-duo .card-avatar + .card-avatar {
+    margin-left: -12px;
+    border: 2px solid var(--bg-card);
+  }
+
+  .card-avatar-placeholder {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--teal) 0%, #0891b2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .card-meta h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .card-meta p {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  .card-quote {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .card-quote::before { content: '\201C'; color: var(--teal); font-size: 20px; font-weight: 700; margin-right: 2px; }
+  .card-quote::after { content: '\201D'; color: var(--teal); font-size: 20px; font-weight: 700; margin-left: 2px; }
+  .card-quote.no-quote::before, .card-quote.no-quote::after { content: ''; margin: 0; }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .card-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--teal-dim);
+    color: var(--teal);
+    border: 1px solid rgba(14, 176, 164, 0.2);
+  }
+
+  .card-source {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  /* ===== NARRATIVE BLOCK ===== */
+  .narrative {
+    text-align: center;
+    padding: 100px 40px;
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .narrative h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    margin-bottom: 18px;
+  }
+
+  .narrative h2 em {
+    font-style: normal;
+    color: var(--teal);
+  }
+
+  .narrative p {
+    font-size: 17px;
+    color: var(--text-secondary);
+    font-weight: 300;
+    line-height: 1.75;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  /* ===== ROTATING QUOTE ===== */
+  .rotating-quote {
+    padding: 80px 60px;
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 72px;
+  }
+
+  .rq-photo-col {
+    flex-shrink: 0;
+  }
+
+  .rq-photo {
+    width: 220px;
+    height: 280px;
+    border-radius: 14px;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.45);
+    transition: opacity 0.45s ease;
+  }
+
+  .rq-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .rq-mark-open, .rq-mark-close {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 72px;
+    line-height: 0.6;
+    color: var(--teal);
+    opacity: 0.35;
+    font-weight: 700;
+    display: block;
+    user-select: none;
+  }
+
+  .rq-mark-open {
+    margin-bottom: 6px;
+  }
+
+  .rq-mark-close {
+    text-align: right;
+    margin-top: 6px;
+    margin-bottom: 20px;
+  }
+
+  .rq-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.75;
+    color: var(--text-primary);
+    transition: opacity 0.45s ease;
+  }
+
+  .rq-author {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    transition: opacity 0.45s ease;
+  }
+
+  .rq-author-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3px;
+  }
+
+  .rq-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--teal);
+    letter-spacing: 0.3px;
+  }
+
+  .rq-role {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .rq-dots {
+    display: flex;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 28px;
+  }
+
+  .rq-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    opacity: 0.4;
+    transition: opacity 0.3s ease, background 0.3s ease;
+  }
+
+  .rq-dot.active {
+    background: var(--teal);
+    opacity: 1;
+  }
+
+  @media (max-width: 700px) {
+    .rotating-quote {
+      flex-direction: column;
+      gap: 36px;
+      padding: 48px 24px;
+    }
+    .rq-photo {
+      width: 100%;
+      height: 260px;
+      object-position: top center;
+    }
+  }
+
+  /* ===== CTA SECTION ===== */
+  .cta-section {
+    text-align: center;
+    padding: 60px 40px 80px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .cta-section h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+
+  .cta-section p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .cta-section .disclaimer {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 36px;
+    background: var(--teal);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-pill);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    transition: all 0.25s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .cta-button:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(14, 176, 164, 0.3); }
+
+  .cta-button svg { width: 18px; height: 18px; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  .footer a { color: var(--teal); text-decoration: none; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(1) { animation-delay: 0.05s; }
+  .card:nth-child(2) { animation-delay: 0.1s; }
+  .card:nth-child(3) { animation-delay: 0.15s; }
+  .card:nth-child(4) { animation-delay: 0.2s; }
+  .card:nth-child(5) { animation-delay: 0.25s; }
+  .card:nth-child(6) { animation-delay: 0.3s; }
+  .card:nth-child(7) { animation-delay: 0.35s; }
+  .card:nth-child(8) { animation-delay: 0.4s; }
+  .card:nth-child(9) { animation-delay: 0.45s; }
+  .card:nth-child(10) { animation-delay: 0.5s; }
+
+  .hidden { display: none !important; }
+
+  /* ===== VIDEO SECTION ===== */
+  .section-title {
+    font-family: 'DM Sans', sans-serif;
+    font-size: clamp(24px, 3vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .section-sub {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  @media (max-width: 900px) { .video-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .video-grid { grid-template-columns: 1fr; } }
+
+  .video-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .video-card:hover {
+    border-color: var(--teal-border);
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+  }
+
+  .video-wrapper {
+    display: block;
+    width: 100%;
+  }
+
+  .video-wrapper iframe {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+  }
+
+  .video-meta {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .video-meta h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  /* ===== INLINE VIDEO CARD ===== */
+  .card:has(.video-wrapper-top) {
+    padding: 0;
+  }
+
+  .video-wrapper-top {
+    position: relative;
+    padding-top: 56.25%;
+    border-radius: 14px 14px 0 0;
+    overflow: hidden;
+    width: 100%;
+    display: block;
+    cursor: pointer;
+  }
+
+  .video-thumb {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.25s;
+  }
+
+  .video-play-btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px; height: 60px;
+    background: rgba(14, 176, 164, 0.88);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s;
+    pointer-events: none;
+  }
+
+  .video-wrapper-top:hover .video-play-btn {
+    background: var(--teal);
+    transform: translate(-50%, -50%) scale(1.08);
+  }
+
+  .video-play-btn svg {
+    width: 22px; height: 22px;
+    margin-left: 4px;
+  }
+
+  .video-wrapper-top.playing .video-thumb,
+  .video-wrapper-top.playing .video-play-btn {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+
+  .card:has(.video-wrapper-top) .card-header {
+    padding: 14px 14px 0;
+    margin-bottom: 0;
+  }
+
+  .card:has(.video-wrapper-top) .card-footer {
+    padding: 0 14px 14px;
+    margin-top: 12px;
+  }
+
+  /* ===== DUO PERSON CARDS ===== */
+  .card-header-duo {
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .card-meta-left {
+    text-align: right;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-meta-right {
+    text-align: left;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .card-header-duo .card-meta h3 {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .card-header-duo .card-meta p {
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="https://www.novatalent.com" class="logo">
+    <svg class="logo-svg" viewBox="0 0 369 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M195.098 55.9614C195.098 38.5557 206.473 26.3186 222.863 26.3186C239.242 26.3186 250.706 38.5557 250.706 55.9614C250.706 73.3672 239.175 85.5932 222.786 85.5932C206.396 85.5932 195.098 73.3672 195.098 55.9614ZM205.612 55.9614C205.612 68.2206 212.349 75.9516 222.863 75.9516C233.366 75.9516 240.114 68.2316 240.114 55.9614C240.114 43.6912 233.377 35.9603 222.863 35.9603C212.349 35.9603 205.612 43.7023 205.612 55.9614ZM139.191 27.3346L166.084 67.9554V27.3346H175.968V84.6544H166.084L139.114 44.0446V84.6544H129.229V27.3346H139.191ZM291.868 60.3459C290.763 63.2506 289.593 66.7847 288.179 71.7988C286.92 67.1713 285.826 63.8028 284.567 60.3459L272.021 27.3346H261.363L282.999 84.6544H293.348L314.685 27.3346H304.248L291.868 60.3459ZM337.955 27.3346H348.237L368.934 84.6544H358.342L353.715 71.4013H332.311L327.684 84.6544H317.258L337.955 27.3346ZM341.809 44.4422L335.304 62.9524H350.866L344.239 44.4422C343.742 43 343.351 41.5235 343.068 40.0245C342.737 41.5208 342.317 42.996 341.809 44.4422Z" fill="white"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M77.1001 43.1279C50.9362 47.5456 27.7543 63.0076 12.977 85.0961C7.32076 93.2795 2.94484 102.277 0 111.779C17.5714 35.9381 50.3729 0 50.3729 0C50.3729 0 63.2064 14.0594 77.1001 43.1279ZM80.8441 52.7587L81.4626 52.6814C89.6966 71.823 96.1587 91.679 100.768 112C100.768 112 79.3421 90.486 54.0065 85.262C51.6085 84.7762 49.1374 84.7762 46.7394 85.262C21.8787 90.3866 0.795188 111.172 0 111.967C8.92534 94.6077 21.9701 79.701 37.9923 68.552C45.8549 63.227 54.4688 59.1062 63.5488 56.326C68.0653 54.969 72.6708 53.9283 77.332 53.2115C77.6848 53.1649 78.0366 53.1153 78.3883 53.0658C79.2036 52.9508 80.0185 52.8359 80.8441 52.7587Z" fill="#0EB0A4"/>
+    </svg>
+  </a>
+  <div class="nav-links">
+    <a href="https://www.novatalent.com" class="nav-link">Back to Nova</a>
+    <a href="https://novatalent.typeform.com/to/njLONv5f" target="_blank" class="nav-cta">Share Your Story</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Wall of Love</div>
+  <h1>
+    <span class="hero-static">Nova changed their</span>
+    <span class="hero-dynamic" id="rotating-word">careers</span>
+  </h1>
+  <p class="hero-sub">Nova is shaped by the people in it. Every member experiences this space differently — through growth, connection, opportunity, and shared ambition.</p>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="stat">
+    <div class="stat-number">+25K</div>
+    <div class="stat-label">Members</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">80+</div>
+    <div class="stat-label">Countries</div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">All</button>
+  <button class="filter-btn" data-filter="connection">Connection</button>
+  <button class="filter-btn" data-filter="career">Career &amp; Leadership</button>
+  <button class="filter-btn" data-filter="growth">Learning &amp; Personal Growth</button>
+  <button class="filter-btn" data-filter="events">Events</button>
+</div>
+
+<!-- SECTION LABEL -->
+<div style="text-align: center; padding: 40px 40px 0;">
+  <div class="hero-eyebrow">In Their Own Words</div>
+</div>
+
+<!-- MASONRY GRID -->
+<div class="grid-container">
+  <div class="masonry" id="masonry">
+
+    <!-- FEATURED: Interview Quotes -->
+    <div class="card featured" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bda3aa0cedd4fc21a18ea3a074ead2f7c0eb506e643dcb8e68756ed6edca0798a2f6e15cb0f2a90dcb2f83e9d5cb2717889bfcb663d74804ed25b785b23a9bdab" alt="Elisa Perez">
+        <div class="card-meta">
+          <h3>Elisa Perez</h3>
+          <p>Founder, Executive Coach, ex-Meta, ex-Google</p>
+        </div>
+      </div>
+      <div class="card-quote">I now teach at MIT -- because of a person I met in Gravity. I didn't even question not renewing.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Gravity</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168ba1360ff32bbd05dc3612aaaf79a38eb3889c5939e7afaed07a31ef4846646a0d0469038b2ba7c23865293a37c724e5aec9f19b96b36ceb79e87f31e4c65f65bd" alt="">
+        <div class="card-meta">
+          <h3>Claudia Marin Aizpun</h3>
+          <p>Digital Regulation at BBVA</p>
+        </div>
+      </div>
+      <div class="card-quote">The C-level dinners are a great format to gain insights from top industry professionals. Being able to ask them questions in real time leads to very enriching conversations and learning. It is also great to meet other Novas, always very interesting people.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">C-Level Dinner, Madrid</span>
+      </div>
+    </div>
+
+    <div class="card featured" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168be16c1678e73fcf6f54bd77cb23a25b09e3f9a6dee7c08110b35988d6cc1ca277ab63841405d9007be3f3d5d3c26479d3246b6c7000c49070299a19d32f99c5f5" alt="Nicola La Rocca">
+        <div class="card-meta">
+          <h3>Nicola La Rocca</h3>
+          <p>UBS, ex-Global Shapers President</p>
+        </div>
+      </div>
+      <div class="card-quote">I don't believe in networks or networking. I believe in connections. You need to spend the most valuable currency -- time.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b3ed1eedc2f722626dc13dbc791569040988830fa4f7c963f6566d1add15762a274c42d4624b5df16f8072e37eb1c04a7d8574ca7c884e399ee496c2ac876b955" alt="">
+        <div class="card-meta">
+          <h3>Francesco Zappala</h3>
+          <p>Americas Executive Finance Director, Rina</p>
+        </div>
+      </div>
+      <div class="card-quote">Totally immersive event: deep diving in both personal and professional values. Very difficult to do it better than this.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">The Nova Experience</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b5d58107aab54d4e7be30004d0ba4b323f2b4a437e852bacf646cc974aedf1ac53964b2b20d5f19d88eb59410a00e56d5e71555df3e8f49b89126ff93273f1945" alt="">
+        <div class="card-meta">
+          <h3>Damiano Fassina</h3>
+          <p>Applied AI Senior Associate, JPMorganChase</p>
+        </div>
+      </div>
+      <div class="card-quote">Great event, everyone was super friendly. I had good fun and chatted about career choices, different paths, creating your own start up and entrepreneurship in general.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Afterwork, London</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="growth">
+      <div class="video-wrapper-top" data-src="https://drive.google.com/file/d/1K7fQiALnf4FYndRsppVOisPtRv6jBHJD/preview">
+        <img class="video-thumb" src="https://drive.google.com/thumbnail?id=1K7fQiALnf4FYndRsppVOisPtRv6jBHJD&sz=w1280" alt="Chiara Vigone video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bae2b240fec1e2cc34110fe1663066b46079d09865834ee1cdb9afc946d6310edbbffd906d3a9f6f5f32be754cc548697b14760c4c77a62ec2008999bffb866ce" alt="Chiara Vigone">
+        <div class="card-meta">
+          <h3>Chiara Vigone</h3>
+          <p>Head of Engineering at Enel Green Power</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Learning &amp; Personal Growth</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+    <div class="card featured" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bde055c0182a018dbbb1cee5b2a33ae41a812e53e4e5877796d6570cb97b7d2cfd496f9612555c87cabee163d525d804c6aaca58406e67ffdd4178c94d826cfd6" alt="Lucía Speranza">
+        <div class="card-meta">
+          <h3>Lucía Speranza</h3>
+          <p>Senior Brand & Product Manager</p>
+        </div>
+      </div>
+      <div class="card-quote">If Nova disappeared, I would lose a part of my identity. It's one of the best things that has happened in my professional career.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Member Interview</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b89d98dd5d1f1f74dd0bb4139b227310d077044af1d547916f3e9184e9f389d20ac18f8fcb13005fcfd98ee9c40d03dc51f8635b7faf99519f6b7b42b82340b96" alt="">
+        <div class="card-meta">
+          <h3>Blanca Hidalgo Madrid</h3>
+          <p>Research Assistant, Severo Ochoa Centre</p>
+        </div>
+      </div>
+      <div class="card-quote">I learnt a lot of amazing things. Pepe's mindset was the thing that resonated with me the most. It is amazing how Nova is able to attract such amazing people from whom we have a lot to learn!</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">C-Level Dinner, Madrid</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b9d590d56cae5ccb7641d9ae0b6e202573f353d9a250add73927a3081eb2a050a9ad688afef0c96aada4158bc3333efb6f6272ab95c2475d12dae4a13fe9effa5" alt="">
+        <div class="card-meta">
+          <h3>Gonzalo Velasco</h3>
+          <p>Program Coordinator, IE University</p>
+        </div>
+      </div>
+      <div class="card-quote">For those Novas who are more introverted, this event let me glimpse the atmosphere that is created with people from this community: it's extremely easy to talk among people. Whether it's because the spark jumps, or because they come to talk to you. Highly recommend!</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Nova Homecoming Party</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b58f37d4b20275cabc04fdc19181f0db29f016ba6cfe8e1bf12682d55ecd94566aadce5ed41eecfb1a8bb0d8f667301be6033f0760e33c1625e96ab078c8767ca" alt="">
+        <div class="card-meta">
+          <h3>Aigerim Fazylova</h3>
+          <p>Senior Policy Manager, TikTok</p>
+        </div>
+      </div>
+      <div class="card-quote">Excellent event, great community, good for building your network of expat community in Ireland and simply make friends, exchange ideas, grab a drink and socialize.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Afterwork, Dublin</span>
+      </div>
+    </div>
+
+    <div class="card featured" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bbef5b44db6a2ba6e3a29266ed838c168056fb9fcbf23d9997b63689cd631fb1a880511270dec2c8efd1d128b9927e943c5d0e0126463545f2b2addcd1049212c" alt="Alberto Pupulin">
+        <div class="card-meta">
+          <h3>Alberto Pupulin</h3>
+          <p>Technology Strategy & Architecture Consultant</p>
+        </div>
+      </div>
+      <div class="card-quote">Talent is spread broadly, but opportunities are not. I found the Schwarzman Scholars program at a Nova event. If it wasn't for Nova, I couldn't find it.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Schwarzman Scholars</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bf5c5756459afb449dce6883af308d7e6d119c29d0652cb7f270e5ebe80d4abbe870fbee6e8282a94c6c3cb4da060313c0da9f079b3319442cc71d1620d1a7717" alt="">
+        <div class="card-meta">
+          <h3>Esteban Grau Sorarrain</h3>
+          <p>Product Manager, Siemens Energy</p>
+        </div>
+      </div>
+      <div class="card-quote">If you are doubting whether to join or not, don't do: join, make it happen. Life-changing.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">The Nova Experience</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b0abb3f62b2bbfe6f38f99f5170e0dbf352c52f84f555ff3ba90b3d991212b9058f2e8c7193b094777a782d4fc3f822b5c32f0114567186671a84afdecaaf81f2" alt="">
+        <div class="card-meta">
+          <h3>Thibault Dormegny</h3>
+          <p>Data Scientist, Barclays</p>
+        </div>
+      </div>
+      <div class="card-quote">Incredible experience during this trip, positively surprised by the deep connections that I had. I recommend it 1,000 times!</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Surf Trip</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bede5a0a1afed11a60081631264cb723b06cc1c48dc66fb0d08f749447797b96aac6c7e7941868591f7b3dfb82f2ce177e2e1c7217f98a5c7b19926cc5d18febb" alt="">
+        <div class="card-meta">
+          <h3>Pablo Bastante Flores</h3>
+          <p>Ph.D. Researcher, IFIMAC</p>
+        </div>
+      </div>
+      <div class="card-quote">Every Nova event is a new adventure. You delve deeper into a topic, you learn a lot by putting it into practice, and you meet people who are spectacular on a human level. It's an environment where you can talk to everyone just by being you.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Nova Knowledge, Madrid</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b6e73b1727d94fe2e005957d95a3daa9a8f0e3f12a7bd217ea5f3c4bc12e4089ac960b3833f8520f991f06c5f7a56d47e7b8e4c1958b5f342aaf30c3a1c41fc71" alt="">
+        <div class="card-meta">
+          <h3>Ana Julia Lopez Fernandez</h3>
+          <p>360 CRM Business Analyst, Bruker</p>
+        </div>
+      </div>
+      <div class="card-quote">It is unimaginable how amazing the connections you make are, truly a must-have and unforgettable experience.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">The Nova Experience</span>
+      </div>
+    </div>
+
+    <div class="card featured" data-theme="growth">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b7f74eeb9c8a9c39e35bd7e5e402d128a63e451f4dfeb5d4805fe8b25a78c6b37e097fc7297b94ca44f72f0f727b0eb319c82ce0663dd9d281eb2c849861dbce3" alt="Michele Papaleo">
+        <div class="card-meta">
+          <h3>Michele Papaleo</h3>
+          <p>ex-Google, ex-Amazon, Madrid</p>
+        </div>
+      </div>
+      <div class="card-quote">When you meet people that have some interest in common with you, but they don't do your same job 40 hours per week -- it's a way to grow up from a personal point of view. Nobody has the one-to-one connection that Nova can create.</div>
+      <div class="card-footer">
+        <span class="card-tag">Learning &amp; Personal Growth</span>
+        <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="growth">
+      <div class="video-wrapper-top" data-src="https://drive.google.com/file/d/1oI9p_0feuEb9sd-tayXvKQKnDrPOISfT/preview">
+        <img class="video-thumb" src="https://drive.google.com/thumbnail?id=1oI9p_0feuEb9sd-tayXvKQKnDrPOISfT&sz=w1280" alt="Per Clingweld video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b644588d2d4d6f7a5f9c78eb6f397ce32145a229730e07c0b3a970d06b73822cc5dde033d529d70e4370dca94ae3491a8" alt="Per Clingweld">
+        <div class="card-meta">
+          <h3>Per Clingweld</h3>
+          <p>AI Change Agent at AI Sweden</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Learning &amp; Personal Growth</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b378704cfb8d4d34c8d4fd16d32278139dce818755f840890cab7ff167df5bc6c0903938b75d69d465ec8f7a66797172df2f355efe1d82ffd27c6dbd07de60a47" alt="Ilaria Di Donfrancesco">
+        <div class="card-meta">
+          <h3>Ilaria Di Donfrancesco</h3>
+          <p>Global Senior Product Manager, Nissan</p>
+        </div>
+      </div>
+      <div class="card-quote">Fantastic Nova Talent event! The conversation was truly insightful, especially around purpose, and left me feeling inspired and motivated. A great opportunity to learn, reflect, and connect with fellow Nova members.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">C-Level Dinner, London</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b80d51b408aebebafc0f963d64ac3631b71d413a15acd6c8a2bfc2f3f9964768eecfd92b13757849aa68b37bda8421e53c3b409f4255347b967a64a8755787b1f" alt="">
+        <div class="card-meta">
+          <h3>Rosa Barragan Barranco</h3>
+          <p>Associate Professor in AI, UN Staff College</p>
+        </div>
+      </div>
+      <div class="card-quote">It's a trip that goes beyond surfing and connecting people. It's a trip to make new friends, get to know yourself a little better, and actively form part of a community where people are not only brilliant but also have hearts of gold.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Surf Trip</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b04cc099494290a91f7dda7dfff4c0106d75493a531e9b5ae4c2850c96193ccfc87fd0725b7f2dc6cd65e7f91ba70e42eaeff7b67365e5693522bb83ca833ff8b" alt="">
+        <div class="card-meta">
+          <h3>Giulio Raffaele</h3>
+          <p>Program Manager, Dipartimento Trasformazione Digitale</p>
+        </div>
+      </div>
+      <div class="card-quote">The Nova Experience gives you the opportunity to deeply connect with amazing people from the most various backgrounds. It is not just about discussing the chosen topic, it is about getting in touch with yourself, your emotions and feelings, opening up to the other participants.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">The Nova Experience</span>
+      </div>
+    </div>
+
+    <div class="card featured" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b52d451aaa0fcc1d9891726b8a8c42112974bd298b074e4c3d145a6f3fe1735ed25ca8ddfe6a30017472f95f3ffb9e3b56e68a1bcddbe594e5750a1e9665fc22f" alt="Julia Marugan">
+        <div class="card-meta">
+          <h3>Julia Marugan</h3>
+          <p>London, Recent Graduate</p>
+        </div>
+      </div>
+      <div class="card-quote">In five years I want to be like that. There were ex-McKinsey and ex-BCG people, which for me was crazy. So for sure it was a key moment. He has become a really good friend.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="career">
+      <div class="video-wrapper-top" data-src="https://drive.google.com/file/d/1qeINDVYCUlxHfJLcdrJz6vNU9dao7gW9/preview">
+        <img class="video-thumb" src="https://drive.google.com/thumbnail?id=1qeINDVYCUlxHfJLcdrJz6vNU9dao7gW9&sz=w1280" alt="Max Nyman video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b91e8367172702a312191639e29ee4afda4c900a326632a8933aee744ef76d737ae21cac7d38a851134975cd8139b7a92119474d898fab080ecd4d0c9306c4e70" alt="Max Nyman">
+        <div class="card-meta">
+          <h3>Max Nyman</h3>
+          <p>Director at Lime Technologies</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168be71789cfcd5b29c5684936022682e306b75002a103ec534ab83bb9f229541164102b1701dceea221f8f69df8bf7b3d7f32ce3ea66ac77b1f8c35a020541b95d3" alt="">
+        <div class="card-meta">
+          <h3>Niccolo Carlo Martello</h3>
+          <p>Senior Consultant, Copenhagen Optimization</p>
+        </div>
+      </div>
+      <div class="card-quote">The monthly afterwork in Copenhagen is a certainty of having a great time. Always great location, hosts, food, but most of all great people and nice conversations! Always recommend the event.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Afterwork, Copenhagen</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bb7767aa69add4b1ed186ae2cfbe58544008625f438b8a16625cda9d682ab17517dfb22bc92769933a2af837fc432dc34d241b090f03842700bea6dae0c191d0a" alt="">
+        <div class="card-meta">
+          <h3>Lennard Dietrich</h3>
+          <p>ESG Program Manager, Ericsson</p>
+        </div>
+      </div>
+      <div class="card-quote">Great concept: intimate setting with few participants, great moderation and efficient agenda -- brief introduction, speaker's presentation, Q&amp;A, mingle afterwards. Thanks for hosting us!</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">C-Level Dinner, Stockholm</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b111f79b0b310f71f900f21c506acef69212f2d906943bc3713c9ab60f01961cd49f246743b4ac723295c6e8a02487bf4929dfefa4977a8ad070320eb54e89b0d" alt="">
+        <div class="card-meta">
+          <h3>Nicolas Verga</h3>
+          <p>Senior Strategy Consultant, Siemens Advanta</p>
+        </div>
+      </div>
+      <div class="card-quote">This event is a true journey that will make you rethink human interaction in a whole new way. You will leave this event inspired and by having made great friendships.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">The Nova Experience</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b019af20540e8ba701a5ed561cd24046277f20757c46dde57b05e552ca62d81ee794eb2964898e27ef48df7e493923399495c433fb3d58a370d861487f72cc8f9" alt="David Goudet">
+        <div class="card-meta">
+          <h3>David Goudet</h3>
+          <p>Senior Software Engineer at Zartis</p>
+        </div>
+      </div>
+      <div class="card-quote">The way Nova's organizers welcome you makes you feel comfortable from minute zero.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Christmas Party</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="video-wrapper-top" data-src="https://drive.google.com/file/d/1TpkbKeg6GUA2XWKd9TIVVQklZBiGuKXB/preview">
+        <img class="video-thumb" src="https://drive.google.com/thumbnail?id=1TpkbKeg6GUA2XWKd9TIVVQklZBiGuKXB&sz=w1280" alt="Marika Baltscheffsky video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b8405cc9aaa28bb7ce42d8b08af47909663f26f2d093616b5b37ba182f16e4dc1268e7e9b050b4ce78f5839194b15180cdcef988fa802484d83bed3a11cf749af" alt="Marika Baltscheffsky">
+        <div class="card-meta">
+          <h3>Marika Baltscheffsky</h3>
+          <p>CMO at Carla</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b6f21a8226f4ba538b3ddd371eea22c2356d9b6efaad287a71d58010b59148f3be6de6633044aa056ec0380a35f97e576f11e848a596d1734518fb9e14f6a9179" alt="">
+        <div class="card-meta">
+          <h3>Ebel Floridia</h3>
+          <p>AI Consultant, OpenAI @ Accenture</p>
+        </div>
+      </div>
+      <div class="card-quote">As always, I felt welcome, chats topics were interesting, looking forward to the next meeting.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Afterwork, Dublin</span>
+      </div>
+    </div>
+
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b5c6e4f029e5c041fdbfc3415b2806a9fa9507f3b095503f214d1d42a346d9903018ef9b13b79c9a371936e3becc40a274c6c9d4f6081d01e42d17cf3e5e89d74" alt="">
+        <div class="card-meta">
+          <h3>Paloma Bernabe Canizares</h3>
+          <p>Presales Engineer, BeHumans</p>
+        </div>
+      </div>
+      <div class="card-quote">We arrived as strangers but connected very quickly thanks to the great activities organized by the Nova staff. This created a safe and comfortable environment in which to share all types of ideas. My favourite part was the connections I made.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">The Nova Experience</span>
+      </div>
+    </div>
+
+
+    <div class="card" data-theme="connection">
+      <div class="video-wrapper-top" data-src="https://drive.google.com/file/d/12mrS1t52hEVe3NyvO0BXFlAp0FkB7Dpx/preview">
+        <img class="video-thumb" src="https://drive.google.com/thumbnail?id=12mrS1t52hEVe3NyvO0BXFlAp0FkB7Dpx&sz=w1280" alt="Carlos Gandiaga video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168be3116201531d80ad13c52abe2587349edf17631f70a281b31459fbcc3a30da017b0cdbb67fa19d24ae041ab3e61758f3096cd0ffb6c5d1c75aba221b54dff62e" alt="Carlos Gandiaga">
+        <div class="card-meta">
+          <h3>Carlos Gandiaga</h3>
+          <p>Technical Lead at IMTF</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+    <!-- Stories from Novas -->
+
+    <div class="card featured" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bae98201373d5b06a381890080a8b1e977e86f48c50ba7ab2d2ac2230cd375be18af9c3f2678c84d3c7dfdbc39e303a87" alt="Luis Basagoiti">
+        <div class="card-meta">
+          <h3>Luis Basagoiti</h3>
+          <p>Co-Founder at Capchase</p>
+        </div>
+      </div>
+      <div class="card-quote">With Nova we got a 100% success ratio: one interview, one candidate hired. There is no other place where you can randomly pick someone and not go wrong.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Careers</span>
+      </div>
+    </div>
+
+    <div class="card featured" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bd79df82adc7489ecb16e0c7b7422a5fe0dfb8af51ec4da7b76398379e3ea4ec84355970cc033fc1586586ca2d25ce2bc" alt="Víctor Ruiz">
+        <div class="card-meta">
+          <h3>Víctor Ruiz</h3>
+          <p>Tech Business Development Manager, Amazon Shipping ES at Amazon</p>
+        </div>
+      </div>
+      <div class="card-quote">In my transition to a new adventure, the Nova team has coached me in various selection processes with tech startups and VCs. I am impressed with how passionately they have supported me in this key phase of my career.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Coaching</span>
+      </div>
+    </div>
+
+    <div class="card featured" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bb5ddcc6a3273b9d3155a482477896a366d15dbfeaf178ee2febb2ada68ec8e020b6f837733c6bff1fcd20f12167bcad0" alt="Ignacio Moreno">
+        <div class="card-meta">
+          <h3>Ignacio Moreno</h3>
+          <p>Co-Founder at Capchase</p>
+        </div>
+      </div>
+      <div class="card-quote">What the brightest people I've met have in common is Nova.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="growth">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b38cb6630661ddb093002b6b82ca638674a8f09ff94ecfb75d4822d7ad95554aea47651e67becded56098ca4a6c99383c04f964f4641e9178ff5e3e3918c375d8" alt="Giulia Voza">
+        <div class="card-meta">
+          <h3>Giulia Voza</h3>
+          <p>Manager of Beauty, Pharma & Fashion, Luxury Sales Team at Amazon</p>
+        </div>
+      </div>
+      <div class="card-quote">Opportunities don't come out of the blue, they need to be created.</div>
+      <div class="card-footer">
+        <span class="card-tag">Learning &amp; Personal Growth</span>
+        <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="growth">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bde9d056e5ed4a156c53b91e5c916dbe7887d776e47bf1e4255559556e4513cb6548e0890edde2a1d79a979e2c25c2d7c" alt="Manu Echánove">
+        <div class="card-meta">
+          <h3>Manu Echánove</h3>
+          <p>Payments, Stablecoins and RWAs at Polygon Labs</p>
+        </div>
+      </div>
+      <div class="card-quote">Nova is all about discovering new people, areas of knowledge and career milestones.</div>
+      <div class="card-footer">
+        <span class="card-tag">Learning &amp; Personal Growth</span>
+        <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="growth">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bdb9edde6478396e24d85dae64c1aef2ccfe41ecbf8221cd87846b99383d284e00c6d61f791dcb6930b818f39eb0662ebd8380c3394d7910b6cb33f40cbe48257" alt="Miriam O'Shea">
+        <div class="card-meta">
+          <h3>Miriam O'Shea</h3>
+          <p>Senior Partner Ops Manager, Major Labels at YouTube</p>
+        </div>
+      </div>
+      <div class="card-quote">I joined Nova for the great opportunity to expand my horizon.</div>
+      <div class="card-footer">
+        <span class="card-tag">Learning &amp; Personal Growth</span>
+        <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+
+    <div class="card featured" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bdad1454686d824395d60ed8a7a98bb21c00a44d917ac1db79538c82072abeeb8bede1fb5e4540d1c38db44c5c09d91677d3ac61957102c73d3770dfa69f8fab4" alt="Michele Artioli">
+        <div class="card-meta">
+          <h3>Michele Artioli</h3>
+          <p>Private Equity | Nova Mentoring</p>
+        </div>
+      </div>
+      <div class="card-quote">At the age of 24, right after completing my master's degree and with no prior experience in banking or consulting, I successfully entered the realm of Private Equity. This achievement wouldn't have been possible without my mentor, who guided me on the right path, making my application more competitive.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Private Equity Program</span>
+      </div>
+    </div>
+
+
+    <div class="card" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168be166dad470f8eca5f923824c04822e349ad0b063a6639c29348c6becb9fce05e1d6b4bb61351ce07005c3fbe9909ce7c8c1e91f521962d1572408e48d4cba2c9" alt="Alessandro Martinino">
+        <div class="card-meta">
+          <h3>Alessandro Martinino</h3>
+          <p>Resident Doctor at Duke University</p>
+        </div>
+      </div>
+      <div class="card-quote no-quote">Met through Nova's Chicago community, ended up passing his driving test from a fellow member lending him their car.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b9bb964b7e3a0987824a599798b59e46367b58142f760bcd6117e88e35375bdee2f1e5f5e4f9ee4ce6daa5024dde85b868d2bab8169d30cde59d317e48d587f72" alt="Riccardo Naitza">
+        <div class="card-meta">
+          <h3>Riccardo Naitza</h3>
+          <p>ECM Practice Manager at GFT Technologies</p>
+        </div>
+      </div>
+      <div class="card-quote">I met the CEO of Deutsche Bank at a Nova Italy CEO Dinner — he became my personal mentor and we've met monthly ever since.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">CEO Dinner, Nova Italy</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b22dbad88cf82a62d66796bfe5d7b7890919d76c037368d918334e5e3dc07c4a0e4cb76e117a8a36a2d989029bb02afa320071c87f962808aa12e6cb1baf1af9e" alt="Carlo Bassani">
+        <div class="card-meta">
+          <h3>Carlo Bassani</h3>
+          <p>Country Manager, Innovamat</p>
+        </div>
+      </div>
+      <div class="card-quote">I was hired as Country Manager of Innovamat thanks to Nova Italy.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Careers</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="card-header card-header-duo">
+        <div class="card-meta card-meta-left">
+          <h3>Daniele Matyas Tieghi</h3>
+          <p>Founder & CEO at ZHERO</p>
+        </div>
+        <div class="card-avatar-duo">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bb63953fa4a9aad5120f749690fd3c0fb3f2b4c40b0743c24cfc45eab7eba8293de47bef6b1b9ab6a98b968487630701be9ec6cd1ffb22fd1b61d84d146c4a175" alt="Daniele Matyas Tieghi">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b52f4cca67c1a1283b9a647adee22df2d266d41979be807bb9d177bbec319c25214a964d3b939eb0a39caa623b3faa1ea7acef0155b53d46562ac14b40ab6e101" alt="Stefano Del Fabbro">
+        </div>
+        <div class="card-meta card-meta-right">
+          <h3>Stefano Del Fabbro</h3>
+          <p>Head of Growth at Zappyrent</p>
+        </div>
+      </div>
+      <div class="card-quote">Met at a Nova Afterwork, ran into each other again at a Senior Dine Out — now planning to start a company together.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Afterwork, Milan</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="card-header card-header-duo">
+        <div class="card-meta card-meta-left">
+          <h3>Fátima Bigeriego</h3>
+          <p>Sales Coach & Advisor</p>
+        </div>
+        <div class="card-avatar-duo">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bc31f7b5c45c43598928165ec520bee4f392582c529bc901a7f770e8aeba18ea936f39938b2d75cf5ce015931458b4bda9285eac46c8c8d3b9d5221cc09e0f7c1" alt="Fátima Bigeriego">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b882484f96d568317092f3454f5d85fdacf6e6b84a2ab97ddb6d0f5a8c1f8667c858d5d806fed4c5aa14eda74bbb5ca98e9f48bfce4bab938f9ebf8921c459485" alt="Cristina Pujol">
+        </div>
+        <div class="card-meta card-meta-right">
+          <h3>Cristina Pujol</h3>
+          <p>CRM Marketing Manager at Vista</p>
+        </div>
+      </div>
+      <div class="card-quote no-quote">Cris and I met through a Nova event and instantly clicked. Not only did we become great friends, but we're now roommates as well!</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Events</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="career">
+      <div class="card-header card-header-duo">
+        <div class="card-meta card-meta-left">
+          <h3>Filippo Mozzi</h3>
+          <p>Marketing Lead at Vacheron Constantin</p>
+        </div>
+        <div class="card-avatar-duo">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b7ff0b18a5026bc49f15799d79dd8481c4e9f3c264376768440125835d3d9214effaed78c9d841070bb7b67bf1f38aaa293d21f4b82967b807b288630b336be72" alt="Filippo Mozzi">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b83851cc0fac3395252fda6dcf184e72f1e84610bc98e50a89dad2061b582790f5909fe0171f4581e25a444a10a7d554bacc5eeb7399d800e33f2ec110949d74a" alt="Antonio Petrullo">
+        </div>
+        <div class="card-meta card-meta-right">
+          <h3>Antonio Petrullo</h3>
+          <p>Account Director at Google</p>
+        </div>
+      </div>
+      <div class="card-quote no-quote">Through Nova's mentorship program, Filippo connected with Antonio — who opened the doors to a visit at Google Italy.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Mentoring</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b25e37f113ebb7509567643e4591cfa7f390e6d468934d84c6788955db934da3937b2dffe29e64fa488a4a72ee56bc4a7f0782a8eba918b6270a55597f53fa5e6" alt="">
+        <div class="card-meta">
+          <h3>Aurora Pierantozzi</h3>
+          <p>AI for Business Value, GE HealthCare</p>
+        </div>
+      </div>
+      <div class="card-quote">Any Afterwork event is the perfect occasion to meet new folks and spend time with Nova friends. Each time is enriching and stimulating -- the well deserved break during the work week!</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Afterwork, London</span>
+      </div>
+    </div>
+
+    <!-- New stories from novatalent.com/nova-stories -->
+
+    <div class="card" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b12a39227db436e3f7ef7a9b94b2014e1fecbd004e96c3af2d935dbd75c51848b118463b62b8aa9f1524912a621e826aa7601e907c4cd4bc5793e1111095d9c83" alt="Gloria Gubianas">
+        <div class="card-meta">
+          <h3>Gloria Gubianas</h3>
+          <p>CEO &amp; Founder at Hemper Handmade</p>
+        </div>
+      </div>
+      <div class="card-quote">When I was just starting out with Hemper, my clothing brand, Nova connected me with what has since become our main investor.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="card-header card-header-duo">
+        <div class="card-meta card-meta-left">
+          <h3>Alberto Cendoya</h3>
+          <p>Co-Founder at Bihar Batteries</p>
+        </div>
+        <div class="card-avatar-duo">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b876a3a30da2a2dc413d3fff72b0ed7cb3c3d5f37a85265c91879542b6633b555464eb9edd1aab6fb43649f1ebb47657e" alt="Alberto Cendoya">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bf5e45ab7fc35e3951c8456232d05622c1dc2aadb162261ed5453097c44151c78f663ba158ca7120e8f8c9f4b880f6ca5" alt="Sebastián Fernández Medrano">
+        </div>
+        <div class="card-meta card-meta-right">
+          <h3>Sebastián Fernández</h3>
+          <p>Co-Founder &amp; COO at Bihar Batteries</p>
+        </div>
+      </div>
+      <div class="card-quote">We both aspired to embark on entrepreneurial ventures but were hesitant to do it alone. Thanks to Nova, we found the ideal co-founder in each other.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b221d600b434826331d4c115e0f1e763b1065be31712b974f4ad326bef207b79a7fc64bdee0aec57f0b912e2f072bf42c" alt="Tomás Bobillo Hernández">
+        <div class="card-meta">
+          <h3>Tomás Bobillo</h3>
+          <p>Partner at Igeneris</p>
+        </div>
+      </div>
+      <div class="card-quote">Thanks to Nova, I met the person who introduced me to my current company, found the perfect roommate when I went abroad, and built lasting friendships over the years. Saying it has transformed my life for the better would be an understatement.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+    <div class="card featured" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b91db086e62faa3918c1db7c5a4e7aebd21c8ad1228570febc6161d950e7768a31d7342a2e4426b5aabad0ab0cce249fde827b460af24307713756c4744d427b9" alt="Victoria Pérez Martínez">
+        <div class="card-meta">
+          <h3>Victoria Pérez Martínez</h3>
+          <p>Consulting Analyst at Madrid Futuro</p>
+        </div>
+      </div>
+      <div class="card-quote">The GLF program gave me the push I needed to step into this new path, and thanks to Nova, I was able to land a role at Madrid Futuro — a McKinsey-founded social impact fund. I'll never forget the plant I received from Nova to congratulate me when I accepted the offer — it's still flourishing two years later!</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">GLF Program</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b0f4742a9f2f1de4a5f01b59aa36c7b3a1ca015cca6ef42ee1b494b59446b04f50d151075732d573c95f41b5cf707e5e9e057c48e5743fff5dc649bdbe1aeb03a" alt="Zahir Khan">
+        <div class="card-meta">
+          <h3>Zahir Khan</h3>
+          <p>Financial Associate at Solaris SE</p>
+        </div>
+      </div>
+      <div class="card-quote">Thanks to Nova and the Management Consulting Program, I was able to land my dream job at BCG in Milan. The mock interviews and support from the Nova community were instrumental in helping me succeed during the recruitment process.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Consulting Program</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="events">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bd34eb613ceea0536e995a8feb1a268824a44fb112667587eaa06b0ff843299a0666e5aefb18b3c1c48fd14ebcc74a35c78cd1086e7d5fc233e0b7fd6bd0caefc" alt="Irene Cid Vega">
+        <div class="card-meta">
+          <h3>Irene Cid</h3>
+          <p>AI Expert at MAPFRE</p>
+        </div>
+      </div>
+      <div class="card-quote">The Nova Surf Trip was a life-changing experience. Attending with my partner inspired us to take the next step, leading to our decision to get married.</div>
+      <div class="card-footer">
+        <span class="card-tag">Events</span>
+        <span class="card-source">Surf Trip</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b8521075ba8bc7f850a49edf0d86871e264ca54aa35e198fa274f1d1222453b6c6d05c006eed22909cbaf32d380853dcf0fe2976611aadc40c3b44467d6ac9394" alt="Mauro Mesiano">
+        <div class="card-meta">
+          <h3>Mauro Mesiano</h3>
+          <p>Senior Sales Executive at Nexi Group</p>
+        </div>
+      </div>
+      <div class="card-quote">Becoming a mentor in Nova has given me the opportunity to connect with amazing people. I can proudly say that some of my mentees have become good friends. Nova's Mentoring Program is truly about building meaningful connections and forming lasting friendships.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Mentoring</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="career">
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b81f39bc53ee51abf084cc418f9b3dedd1c1233c47c14cc3cbd75171888e79748b0ad22f0bcb25d226555ae5699b263f528254e704ac3674ab39cba100e957847" alt="Guillermo Gauna">
+        <div class="card-meta">
+          <h3>Guillermo Gauna</h3>
+          <p>CEO at Ayúdame3D</p>
+        </div>
+      </div>
+      <div class="card-quote">When Nova hosted their first gala for the Nova 111 List, they thought about me and reached out to see if I could 3D print all the trophies. That opportunity became a turning point, and now creating trophies and other products for companies has become my primary business line.</div>
+      <div class="card-footer">
+        <span class="card-tag">Career &amp; Leadership</span>
+        <span class="card-source">Careers</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="card-header card-header-duo">
+        <div class="card-meta card-meta-left">
+          <h3>Marc Bachs</h3>
+          <p>Head of Operations at Block Earner</p>
+        </div>
+        <div class="card-avatar-duo">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bb1f4b0bf4b135431fbaa9c06253a5b9f8695acafa48c4acb627e23cccc892f58b3251326ad8a4d9dcc820ca3380efc92" alt="Marc Bachs">
+          <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b01bec03782665e2421c8129a86d64e80d079c8572fd181b652fda0f60fef043bec9ddb9c3073465a9f00321ad1847cf8" alt="Juan Martino Nales">
+        </div>
+        <div class="card-meta card-meta-right">
+          <h3>Juan Martino</h3>
+          <p>Global Design Innovation Manager at ARCADIS</p>
+        </div>
+      </div>
+      <div class="card-quote">Being an expat feels a lot less intimidating when you're part of Nova. Before moving to Sydney, I reached out to Marc, a fellow Nova who was already living there. Those initial conversations not only answered my doubts but also sparked a friendship that has proven to be incredibly valuable.</div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- NARRATIVE BLOCK -->
+<section class="narrative reveal">
+  <h2>A community with<br><em>many paths forward.</em></h2>
+  <p>Talent is everywhere. Nova exists to make sure opportunity finds you — wherever you are, wherever you're going.</p>
+</section>
+
+<!-- ROTATING QUOTE -->
+<section class="rotating-quote reveal">
+  <div class="rq-photo-col">
+    <img class="rq-photo" id="rq-photo" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b7f74eeb9c8a9c39e35bd7e5e402d128a63e451f4dfeb5d4805fe8b25a78c6b37e097fc7297b94ca44f72f0f727b0eb319c82ce0663dd9d281eb2c849861dbce3" alt="Michele Papaleo">
+  </div>
+  <div class="rq-content">
+    <span class="rq-mark-open">"</span>
+    <p class="rq-text" id="rq-text">When you meet people that have some interest in common with you, but they don't do your same job 40 hours per week — it's a way to grow up from a personal point of view. Nobody has the one-to-one connection that Nova can create.</p>
+    <span class="rq-mark-close">"</span>
+    <div class="rq-author" id="rq-author">
+      <div class="rq-author-text">
+        <span class="rq-name">Michele Papaleo</span>
+        <span class="rq-role">ex-Google, ex-Amazon</span>
+      </div>
+    </div>
+    <div class="rq-dots">
+      <div class="rq-dot active"></div>
+      <div class="rq-dot"></div>
+      <div class="rq-dot"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA SECTION -->
+<section class="cta-section reveal" id="add-your-voice">
+  <h2>Add Your Voice</h2>
+  <p>Your experience matters here too. What has Nova meant to you? What have you gained, discovered, or appreciated since joining?</p>
+  <p class="disclaimer">Submissions may be featured on this page to highlight the diversity of experiences within Nova.</p>
+  <a href="https://novatalent.typeform.com/to/njLONv5f" target="_blank" class="cta-button">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+    Share Your Story
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>&copy; 2026 <a href="https://www.novatalent.com">Nova Talent</a>. All rights reserved.</p>
+</footer>
+
+<script>
+  // === FILTER LOGIC ===
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.card');
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+
+      cards.forEach((card, i) => {
+        if (filter === 'all' || card.dataset.theme === filter) {
+          card.classList.remove('hidden');
+          card.style.animationDelay = `${i * 0.04}s`;
+          card.style.animation = 'none';
+          card.offsetHeight; // trigger reflow
+          card.style.animation = '';
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // === SCROLL REVEAL ===
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // === ROTATING HERO WORD ===
+  const heroWords = ['careers', 'lives', 'networks', 'perspectives', 'futures'];
+  const rotatingEl = document.getElementById('rotating-word');
+  let wordIndex = 0;
+  setInterval(() => {
+    rotatingEl.style.opacity = '0';
+    setTimeout(() => {
+      wordIndex = (wordIndex + 1) % heroWords.length;
+      rotatingEl.textContent = heroWords[wordIndex];
+      rotatingEl.style.opacity = '1';
+    }, 350);
+  }, 2800);
+
+  // === ROTATING QUOTE ===
+  const rqQuotes = [
+    { text: "When you meet people that have some interest in common with you, but they don't do your same job 40 hours per week — it's a way to grow up from a personal point of view. Nobody has the one-to-one connection that Nova can create.", name: "Michele Papaleo", role: "ex-Google, ex-Amazon", photo: "https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b7f74eeb9c8a9c39e35bd7e5e402d128a63e451f4dfeb5d4805fe8b25a78c6b37e097fc7297b94ca44f72f0f727b0eb319c82ce0663dd9d281eb2c849861dbce3" },
+    { text: "The way Nova's organizers welcome you makes you feel comfortable from minute zero.", name: "David Goudet", role: "Senior Software Engineer, Zartis", photo: "https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b019af20540e8ba701a5ed561cd24046277f20757c46dde57b05e552ca62d81ee794eb2964898e27ef48df7e493923399495c433fb3d58a370d861487f72cc8f9" },
+    { text: "It is amazing how Nova is able to attract such amazing people from whom we have a lot to learn.", name: "Blanca Hidalgo Madrid", role: "Research Assistant, Severo Ochoa Centre", photo: "https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b89d98dd5d1f1f74dd0bb4139b227310d077044af1d547916f3e9184e9f389d20ac18f8fcb13005fcfd98ee9c40d03dc51f8635b7faf99519f6b7b42b82340b96" }
+  ];
+  let rqIndex = 0;
+  const rqText = document.getElementById('rq-text');
+  const rqAuthor = document.getElementById('rq-author');
+  const rqPhoto = document.getElementById('rq-photo');
+  const rqDots = document.querySelectorAll('.rq-dot');
+
+  setInterval(() => {
+    rqText.style.opacity = '0';
+    rqAuthor.style.opacity = '0';
+    rqPhoto.style.opacity = '0';
+    setTimeout(() => {
+      rqIndex = (rqIndex + 1) % rqQuotes.length;
+      const q = rqQuotes[rqIndex];
+      rqText.textContent = q.text;
+      rqPhoto.src = q.photo;
+      rqPhoto.alt = q.name;
+      rqAuthor.querySelector('.rq-name').textContent = q.name;
+      rqAuthor.querySelector('.rq-role').textContent = q.role;
+      rqDots.forEach((d, i) => d.classList.toggle('active', i === rqIndex));
+      rqText.style.opacity = '1';
+      rqAuthor.style.opacity = '1';
+      rqPhoto.style.opacity = '1';
+    }, 450);
+  }, 6000);
+
+  // === VIDEO CLICK-TO-PLAY ===
+  document.querySelectorAll('.video-wrapper-top[data-src]').forEach(wrapper => {
+    wrapper.addEventListener('click', function() {
+      if (this.classList.contains('playing')) return;
+      this.classList.add('playing');
+      const iframe = document.createElement('iframe');
+      iframe.src = this.dataset.src;
+      iframe.allowFullscreen = true;
+      iframe.allow = 'autoplay';
+      iframe.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:calc(100% + 90px);border:none;display:block;';
+      this.appendChild(iframe);
+    });
+  });
+
+  // === AVATAR FALLBACK ===
+  document.querySelectorAll('.card-avatar').forEach(img => {
+    img.addEventListener('error', function() {
+      const name = this.closest('.card-header').querySelector('h3').textContent;
+      const initials = name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+      const placeholder = document.createElement('div');
+      placeholder.className = 'card-avatar-placeholder';
+      placeholder.textContent = initials;
+      this.replaceWith(placeholder);
+    });
+  });
+</script>
+
+</body>
+</html>
