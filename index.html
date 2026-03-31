@@ -303,12 +303,12 @@
     flex-shrink: 0;
   }
   .card-avatar-duo .card-avatar {
-    width: 60px;
-    height: 60px;
+    width: 76px;
+    height: 76px;
     transition: transform 0.35s ease, z-index 0s;
   }
   .card-avatar-duo .card-avatar + .card-avatar {
-    margin-left: -18px;
+    margin-left: -22px;
     border: 2px solid var(--bg-card);
   }
   .card-avatar-duo .card-avatar:hover {
@@ -317,19 +317,19 @@
     position: relative;
   }
 
-  @keyframes duo-float-a {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
+  @keyframes duo-nudge-left {
+    0%, 100% { transform: translateX(0px); }
+    50% { transform: translateX(5px); }
   }
-  @keyframes duo-float-b {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); }
+  @keyframes duo-nudge-right {
+    0%, 100% { transform: translateX(0px); }
+    50% { transform: translateX(-5px); }
   }
   .card-avatar-duo .card-avatar:first-child {
-    animation: duo-float-a 3.2s ease-in-out infinite;
+    animation: duo-nudge-left 3.2s ease-in-out infinite;
   }
   .card-avatar-duo .card-avatar:last-child {
-    animation: duo-float-b 3.2s ease-in-out infinite 1.6s;
+    animation: duo-nudge-right 3.2s ease-in-out infinite;
   }
   .card-avatar-duo .card-avatar:hover {
     animation-play-state: paused;
@@ -850,67 +850,68 @@
   /* ===== ADD YOUR VOICE BANNER ===== */
   #add-voice-banner {
     position: fixed;
-    bottom: 28px;
-    right: 28px;
+    top: 90px;
+    left: 50%;
     z-index: 999;
-    background: #130826;
-    border: 1px solid var(--teal-border);
-    border-radius: 18px;
-    padding: 30px 32px 26px;
-    max-width: 360px;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.65), 0 0 0 1px rgba(14,176,164,0.08);
-    transform: translateY(calc(100% + 40px));
+    background: var(--teal);
+    border: none;
+    border-radius: 20px;
+    padding: 38px 44px 34px;
+    max-width: 520px;
+    width: calc(100% - 48px);
+    box-shadow: 0 32px 80px rgba(14,176,164,0.3), 0 8px 32px rgba(0,0,0,0.45);
+    transform: translateX(-50%) translateY(-16px);
     opacity: 0;
     transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.64, 1), opacity 0.4s ease;
     pointer-events: none;
   }
   #add-voice-banner.visible {
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
     opacity: 1;
     pointer-events: all;
   }
   .banner-close {
     position: absolute;
-    top: 14px; right: 18px;
+    top: 16px; right: 20px;
     background: none; border: none;
-    color: var(--text-muted);
+    color: rgba(9,0,14,0.45);
     cursor: pointer;
-    font-size: 16px;
+    font-size: 18px;
     line-height: 1;
     padding: 4px;
     transition: color 0.2s;
   }
-  .banner-close:hover { color: white; }
+  .banner-close:hover { color: #09000E; }
   .banner-title {
     font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 700;
-    color: var(--teal);
-    margin-bottom: 12px;
+    color: #09000E;
+    margin-bottom: 14px;
     letter-spacing: 0.01em;
   }
   .banner-body {
-    font-size: 13px;
-    line-height: 1.7;
-    color: var(--text-secondary);
-    margin-bottom: 22px;
+    font-size: 14.5px;
+    line-height: 1.75;
+    color: rgba(9,0,14,0.75);
+    margin-bottom: 26px;
   }
   .banner-body p + p { margin-top: 10px; }
   .banner-cta {
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    background: var(--teal);
-    color: #09000E;
+    background: #09000E;
+    color: #ffffff;
     font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    padding: 10px 22px;
+    padding: 13px 28px;
     border-radius: 50px;
     text-decoration: none;
     transition: opacity 0.2s, transform 0.2s;
   }
-  .banner-cta:hover { opacity: 0.88; transform: translateY(-1px); }
+  .banner-cta:hover { opacity: 0.85; transform: translateY(-1px); }
 </style>
 </head>
 <body>
@@ -1016,6 +1017,25 @@
       <div class="card-footer">
         <span class="card-tag">Connection</span>
         <span class="card-source">Membership</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="growth">
+      <div class="video-wrapper-top" data-ytid="wRubDQBHds0">
+        <img class="video-thumb" src="https://img.youtube.com/vi/wRubDQBHds0/maxresdefault.jpg" alt="Per Clingweld video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="yt-sound-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b644588d2d4d6f7a5f9c78eb6f397ce32145a229730e07c0b3a970d06b73822cc5dde033d529d70e4370dca94ae3491a8" alt="Per Clingweld">
+        <div class="card-meta">
+          <h3>Per Clingweld</h3>
+          <p>AI Change Agent at AI Sweden</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Learning &amp; Personal Growth</span>
+        <span class="card-source">Nova Community</span>
       </div>
     </div>
 
@@ -1218,25 +1238,6 @@
       </div>
     </div>
 
-    <div class="card" data-theme="growth">
-      <div class="video-wrapper-top" data-ytid="wRubDQBHds0">
-        <img class="video-thumb" src="https://img.youtube.com/vi/wRubDQBHds0/maxresdefault.jpg" alt="Per Clingweld video">
-        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="yt-sound-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</div>
-      </div>
-      <div class="card-header">
-        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b644588d2d4d6f7a5f9c78eb6f397ce32145a229730e07c0b3a970d06b73822cc5dde033d529d70e4370dca94ae3491a8" alt="Per Clingweld">
-        <div class="card-meta">
-          <h3>Per Clingweld</h3>
-          <p>AI Change Agent at AI Sweden</p>
-        </div>
-      </div>
-      <div class="card-footer">
-        <span class="card-tag">Learning &amp; Personal Growth</span>
-        <span class="card-source">Nova Community</span>
-      </div>
-    </div>
-
     <div class="card" data-theme="events">
       <div class="card-header">
         <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b378704cfb8d4d34c8d4fd16d32278139dce818755f840890cab7ff167df5bc6c0903938b75d69d465ec8f7a66797172df2f355efe1d82ffd27c6dbd07de60a47" alt="Ilaria Di Donfrancesco">
@@ -1376,25 +1377,6 @@
       </div>
     </div>
 
-    <div class="card" data-theme="connection">
-      <div class="video-wrapper-top" data-ytid="kBduQI-Gb9E">
-        <img class="video-thumb" src="https://img.youtube.com/vi/kBduQI-Gb9E/maxresdefault.jpg" alt="Marika Baltscheffsky video">
-        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="yt-sound-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</div>
-      </div>
-      <div class="card-header">
-        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b8405cc9aaa28bb7ce42d8b08af47909663f26f2d093616b5b37ba182f16e4dc1268e7e9b050b4ce78f5839194b15180cdcef988fa802484d83bed3a11cf749af" alt="Marika Baltscheffsky">
-        <div class="card-meta">
-          <h3>Marika Baltscheffsky</h3>
-          <p>CMO at Carla</p>
-        </div>
-      </div>
-      <div class="card-footer">
-        <span class="card-tag">Connection</span>
-        <span class="card-source">Nova Community</span>
-      </div>
-    </div>
-
     <div class="card" data-theme="events">
       <div class="card-header">
         <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b6f21a8226f4ba538b3ddd371eea22c2356d9b6efaad287a71d58010b59148f3be6de6633044aa056ec0380a35f97e576f11e848a596d1734518fb9e14f6a9179" alt="">
@@ -1426,25 +1408,6 @@
       </div>
     </div>
 
-
-    <div class="card" data-theme="connection">
-      <div class="video-wrapper-top" data-ytid="c4n-gi3iIOA">
-        <img class="video-thumb" src="https://img.youtube.com/vi/c4n-gi3iIOA/maxresdefault.jpg" alt="Carlos Gandiaga video">
-        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="yt-sound-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</div>
-      </div>
-      <div class="card-header">
-        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168be3116201531d80ad13c52abe2587349edf17631f70a281b31459fbcc3a30da017b0cdbb67fa19d24ae041ab3e61758f3096cd0ffb6c5d1c75aba221b54dff62e" alt="Carlos Gandiaga">
-        <div class="card-meta">
-          <h3>Carlos Gandiaga</h3>
-          <p>Technical Lead at IMTF</p>
-        </div>
-      </div>
-      <div class="card-footer">
-        <span class="card-tag">Connection</span>
-        <span class="card-source">Nova Community</span>
-      </div>
-    </div>
 
     <!-- Stories from Novas -->
 
@@ -1538,6 +1501,24 @@
       </div>
     </div>
 
+    <div class="card" data-theme="connection">
+      <div class="video-wrapper-top" data-ytid="kBduQI-Gb9E">
+        <img class="video-thumb" src="https://img.youtube.com/vi/kBduQI-Gb9E/maxresdefault.jpg" alt="Marika Baltscheffsky video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="yt-sound-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b8405cc9aaa28bb7ce42d8b08af47909663f26f2d093616b5b37ba182f16e4dc1268e7e9b050b4ce78f5839194b15180cdcef988fa802484d83bed3a11cf749af" alt="Marika Baltscheffsky">
+        <div class="card-meta">
+          <h3>Marika Baltscheffsky</h3>
+          <p>CMO at Carla</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Community</span>
+      </div>
+    </div>
 
     <div class="card featured" data-theme="career">
       <div class="card-header">
@@ -1725,6 +1706,25 @@
       <div class="card-footer">
         <span class="card-tag">Events</span>
         <span class="card-source">The Nova Experience</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="connection">
+      <div class="video-wrapper-top" data-ytid="c4n-gi3iIOA">
+        <img class="video-thumb" src="https://img.youtube.com/vi/c4n-gi3iIOA/maxresdefault.jpg" alt="Carlos Gandiaga video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="yt-sound-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168be3116201531d80ad13c52abe2587349edf17631f70a281b31459fbcc3a30da017b0cdbb67fa19d24ae041ab3e61758f3096cd0ffb6c5d1c75aba221b54dff62e" alt="Carlos Gandiaga">
+        <div class="card-meta">
+          <h3>Carlos Gandiaga</h3>
+          <p>Technical Lead at IMTF</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Connection</span>
+        <span class="card-source">Nova Community</span>
       </div>
     </div>
 
