@@ -326,9 +326,15 @@
     50% { transform: translateX(-5px); }
   }
   .card-avatar-duo .card-avatar:first-child {
-    animation: duo-nudge-left 3.2s ease-in-out infinite;
+    animation: none;
   }
   .card-avatar-duo .card-avatar:last-child {
+    animation: none;
+  }
+  .card-avatar-duo.in-view .card-avatar:first-child {
+    animation: duo-nudge-left 3.2s ease-in-out infinite;
+  }
+  .card-avatar-duo.in-view .card-avatar:last-child {
     animation: duo-nudge-right 3.2s ease-in-out infinite;
   }
   .card-avatar-duo .card-avatar:hover {
@@ -874,29 +880,34 @@
     position: absolute;
     top: 16px; right: 20px;
     background: none; border: none;
-    color: rgba(9,0,14,0.45);
+    color: rgba(255,255,255,0.6);
     cursor: pointer;
     font-size: 18px;
     line-height: 1;
     padding: 4px;
     transition: color 0.2s;
   }
-  .banner-close:hover { color: #09000E; }
+  .banner-close:hover { color: #ffffff; }
   .banner-title {
     font-family: 'DM Sans', sans-serif;
     font-size: 20px;
     font-weight: 700;
-    color: #09000E;
+    color: #ffffff;
     margin-bottom: 14px;
     letter-spacing: 0.01em;
+    text-align: center;
   }
   .banner-body {
     font-size: 14.5px;
     line-height: 1.75;
-    color: rgba(9,0,14,0.75);
+    color: rgba(255,255,255,0.85);
     margin-bottom: 26px;
+    text-align: center;
   }
   .banner-body p + p { margin-top: 10px; }
+  .banner-cta-wrap {
+    text-align: center;
+  }
   .banner-cta {
     display: inline-flex;
     align-items: center;
@@ -975,25 +986,6 @@
   <div class="masonry" id="masonry">
 
     <!-- FEATURED: Interview Quotes -->
-    <div class="card" data-theme="growth">
-      <div class="video-wrapper-top" data-ytid="wRubDQBHds0">
-        <img class="video-thumb" src="https://img.youtube.com/vi/wRubDQBHds0/maxresdefault.jpg" alt="Per Clingweld video">
-        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
-        <div class="yt-sound-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</div>
-      </div>
-      <div class="card-header">
-        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b644588d2d4d6f7a5f9c78eb6f397ce32145a229730e07c0b3a970d06b73822cc5dde033d529d70e4370dca94ae3491a8" alt="Per Clingweld">
-        <div class="card-meta">
-          <h3>Per Clingweld</h3>
-          <p>AI Change Agent at AI Sweden</p>
-        </div>
-      </div>
-      <div class="card-footer">
-        <span class="card-tag">Learning &amp; Personal Growth</span>
-        <span class="card-source">Nova Community</span>
-      </div>
-    </div>
-
     <div class="card featured" data-theme="connection">
       <div class="card-header">
         <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168bda3aa0cedd4fc21a18ea3a074ead2f7c0eb506e643dcb8e68756ed6edca0798a2f6e15cb0f2a90dcb2f83e9d5cb2717889bfcb663d74804ed25b785b23a9bdab" alt="Elisa Perez">
@@ -1021,6 +1013,25 @@
       <div class="card-footer">
         <span class="card-tag">Events</span>
         <span class="card-source">C-Level Dinner, Madrid</span>
+      </div>
+    </div>
+
+    <div class="card" data-theme="growth">
+      <div class="video-wrapper-top" data-ytid="wRubDQBHds0">
+        <img class="video-thumb" src="https://img.youtube.com/vi/wRubDQBHds0/maxresdefault.jpg" alt="Per Clingweld video">
+        <div class="video-play-btn"><svg viewBox="0 0 24 24" fill="white"><polygon points="6,3 20,12 6,21"/></svg></div>
+        <div class="yt-sound-hint"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg> Tap to unmute</div>
+      </div>
+      <div class="card-header">
+        <img class="card-avatar" src="https://quasar.novatalent.com/files?token=60525f4fa2025db929b6a93a0cfbd7a35ee6e7c6cd8100df6ba3135a5735168b644588d2d4d6f7a5f9c78eb6f397ce32145a229730e07c0b3a970d06b73822cc5dde033d529d70e4370dca94ae3491a8" alt="Per Clingweld">
+        <div class="card-meta">
+          <h3>Per Clingweld</h3>
+          <p>AI Change Agent at AI Sweden</p>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span class="card-tag">Learning &amp; Personal Growth</span>
+        <span class="card-source">Nova Community</span>
       </div>
     </div>
 
@@ -2027,6 +2038,20 @@
     if (banner) banner.classList.add('visible');
   }, 10000);
 
+  // === DUO AVATAR SCROLL ANIMATION ===
+  var duoObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in-view');
+      } else {
+        entry.target.classList.remove('in-view');
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.card-avatar-duo').forEach(function(duo) {
+    duoObserver.observe(duo);
+  });
+
   // === AVATAR FALLBACK ===
   document.querySelectorAll('.card-avatar').forEach(img => {
     img.addEventListener('error', function() {
@@ -2048,7 +2073,9 @@
     <p>Your experience matters here too. What has Nova meant to you? What have you gained, discovered, or appreciated since joining?</p>
     <p>Submissions may be featured on this page to highlight the diversity of experiences within Nova.</p>
   </div>
-  <a href="https://novatalent.typeform.com/to/njLONv5f" target="_blank" class="banner-cta">Share Your Story →</a>
+  <div class="banner-cta-wrap">
+    <a href="https://novatalent.typeform.com/to/njLONv5f" target="_blank" class="banner-cta">Share Your Story →</a>
+  </div>
 </div>
 
 </body>
