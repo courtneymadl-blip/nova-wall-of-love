@@ -321,7 +321,7 @@
     transition: transform 0.35s ease, z-index 0s;
   }
   .card-avatar-duo .card-avatar + .card-avatar {
-    margin-left: -8px;
+    margin-left: -6px;
     border: 2px solid var(--bg-card);
   }
   .card-avatar-duo .card-avatar:hover {
@@ -1866,25 +1866,73 @@
 </footer>
 
 <script>
-  // === 3-COLUMN MASONRY — PER PINNED TO TOP-RIGHT ===
+  // === 3-COLUMN MASONRY — VIDEOS STAGGERED ACROSS COLUMNS ===
   (function() {
     if (window.innerWidth <= 900) return;
     var masonry = document.getElementById('masonry');
     if (!masonry) return;
+
     var allCards = Array.from(masonry.children).filter(function(el) {
       return el.classList.contains('card');
     });
-    var perCard = allCards.find(function(c) {
-      return c.querySelector('[data-ytid="wRubDQBHds0"]');
-    });
+
+    function findByYtid(ytid) {
+      return allCards.find(function(c) { return !!c.querySelector('[data-ytid="' + ytid + '"]'); });
+    }
+
+    var perCard    = findByYtid('wRubDQBHds0'); // col 2, row 1
+    var chiaraCard = findByYtid('Fv9IAWd8Yys'); // col 0, after 3 regulars
+    var maxCard    = findByYtid('ziDfXbHFRms'); // col 1, after 6 regulars
+    var marikaCard = findByYtid('kBduQI-Gb9E'); // col 0, mid-page
+    var carlosCard = findByYtid('c4n-gi3iIOA'); // col 1, lower-page
+
+    var pinned = [perCard, chiaraCard, maxCard, marikaCard, carlosCard].filter(Boolean);
+    var reg = allCards.filter(function(c) { return pinned.indexOf(c) === -1; });
+
     var cols = [0, 1, 2].map(function() {
       var col = document.createElement('div');
       col.className = 'masonry-col';
       return col;
     });
+
+    var ri = 0;
+
+    // Col 2 (right): Per at very top
     if (perCard) cols[2].appendChild(perCard);
-    var remaining = allCards.filter(function(c) { return c !== perCard; });
-    remaining.forEach(function(card, i) { cols[i % 3].appendChild(card); });
+
+    // Col 0 (left): 3 regulars → Chiara video
+    for (var i = 0; i < 3; i++) if (ri < reg.length) cols[0].appendChild(reg[ri++]);
+    if (chiaraCard) cols[0].appendChild(chiaraCard);
+
+    // Col 1 (center): 6 regulars → Max video
+    for (var i = 0; i < 6; i++) if (ri < reg.length) cols[1].appendChild(reg[ri++]);
+    if (maxCard) cols[1].appendChild(maxCard);
+
+    // Col 2: 3 more regulars (to match depth of col 0 + col 1)
+    for (var i = 0; i < 3; i++) if (ri < reg.length) cols[2].appendChild(reg[ri++]);
+
+    // Continue round-robin; insert Marika into col 0 and Carlos into col 1 mid-page
+    var step = 0;
+    var marikaInserted = !marikaCard;
+    var carlosInserted = !carlosCard;
+
+    while (ri < reg.length) {
+      var ci = step % 3;
+      if (!marikaInserted && ci === 0 && cols[0].children.length >= 10) {
+        cols[0].appendChild(marikaCard);
+        marikaInserted = true;
+      }
+      if (!carlosInserted && ci === 1 && cols[1].children.length >= 13) {
+        cols[1].appendChild(carlosCard);
+        carlosInserted = true;
+      }
+      cols[ci].appendChild(reg[ri++]);
+      step++;
+    }
+
+    if (!marikaInserted && marikaCard) cols[0].appendChild(marikaCard);
+    if (!carlosInserted && carlosCard) cols[1].appendChild(carlosCard);
+
     masonry.innerHTML = '';
     cols.forEach(function(col) { masonry.appendChild(col); });
     masonry.classList.add('masonry-flex');
